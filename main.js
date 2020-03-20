@@ -1,4 +1,4 @@
-var table = $("table");
+var table = document.querySelector('table');
 
 
 var gradeTable = new GradeTable(table);
