@@ -1,3 +1,6 @@
+var APIKey = "GkNqAZE8";
+var url = "https://sgt.lfzprototypes.com/api/grades";
+
 class App {
   constructor (gradeTable, pageHeader, gradeForm) {
     this.handleGetGradesError = this.handleGetGradesError.bind(this);
@@ -27,9 +30,9 @@ class App {
   getGrades() {
     $.ajax({
       method: "GET",
-      url: "https://sgt.lfzprototypes.com/api/grades",
+      url: url,
       headers: {
-        "X-Access-Token": "GkNqAZE8"
+        "X-Access-Token": APIKey
       },
       success: this.handleGetGradesSuccess,
       error: this.handleGetGradesError
@@ -37,9 +40,23 @@ class App {
   }
   start() {
     this.getGrades();
+    this.gradeForm.onSubmit(this.createGrade);
   }
   createGrade(name, course, grade) {
-    console.log('app.js', name,course,grade)
+    $.ajax({
+      method: "POST",
+      url: url,
+      headers: {
+        "X-Access-Token": APIKey
+      },
+      data: {
+        "name": name,
+        "course": course,
+        "grade": grade
+      },
+      success: this.handleCreateGradeSuccess,
+      error: this.handleCreateGradeError
+    })
   }
   handleCreateGradeError(error){
     console.error(error);
