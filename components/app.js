@@ -28,6 +28,10 @@ class App {
     }
     avgGrades /= grades.length;
 
+    if (Number.isNaN(avgGrades)) {
+      avgGrades = 0;
+    }
+
     this.pageHeader.updateAverage(avgGrades);
   }
   getGrades() {
@@ -69,12 +73,32 @@ class App {
     this.getGrades();
   }
   deleteGrade(id){
-    console.log(id);
+    $.ajax({
+      method: "DELETE",
+      url: `${url}/${id}`,
+      headers: {
+        "X-Access-Token": APIKey
+      },
+      success: this.handleDeleteGradeSuccess,
+      error: this.handleDeleteGradeError
+    })
   }
   handleDeleteGradeError(error){
     console.error(error);
   }
   handleDeleteGradeSuccess(){
     this.getGrades();
+  }
+  ajaxCall(ajaxData){
+    $.ajax({
+      method: ajaxData.method,
+      url: ajaxData.url,
+      data: ajaxData.data,
+      headers: {
+        "X-Access-Token": APIKey
+      },
+      success: ajaxData.success,
+      error: ajaxData.error
+    })
   }
 }
