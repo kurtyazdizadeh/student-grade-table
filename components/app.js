@@ -64,4 +64,10 @@ class App {
   handleCreateGradeSuccess(){
     this.getGrades();
   }
+  deleteGrade(id){
+    console.log(id);
+  }
+  handleDeleteGradeError(error){
+    console.error(error);
+  }
 }
