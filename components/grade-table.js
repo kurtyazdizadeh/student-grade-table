@@ -28,6 +28,9 @@ class GradeTable {
     var operationsButton = document.createElement("button");
     operationsButton.textContent = "Delete";
     operationsButton.className = "btn btn-danger";
+    operationsButton.addEventListener('click', function() {
+      deleteGrade(data.id);
+    });
 
     operations.appendChild(operationsButton);
 
