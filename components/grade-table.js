@@ -7,6 +7,10 @@ class GradeTable {
   updateGrades(grades){
     this.tbody.innerHTML = "";
 
+    (!grades.length) ?
+      this.noGradesElement.classList.remove('d-none') :
+      this.noGradesElement.classList.add('d-none');
+
     for (var i = 0; i < grades.length; i++) {
       this.renderGradeRow(grades[i], this.deleteGrade);
     }
