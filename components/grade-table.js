@@ -1,27 +1,48 @@
 class GradeTable {
-  constructor (tableElement) {
+  constructor (tableElement, noGradesElement) {
     this.tableElement = tableElement;
+    this.tbody = this.tableElement.querySelector('tbody');
+    this.noGradesElement = noGradesElement;
   }
   updateGrades(grades){
-    var tbody = this.tableElement.querySelector('tbody');
-    tbody.innerHTML = "";
+    this.tbody.innerHTML = "";
+
+    (!grades.length) ?
+      this.noGradesElement.classList.remove('d-none') :
+      this.noGradesElement.classList.add('d-none');
 
     for (var i = 0; i < grades.length; i++) {
-      var row = document.createElement("tr");
-      var name = document.createElement("td");
-      var course = document.createElement("td");
-      var grade = document.createElement("td");
-
-      name.textContent = grades[i].name;
-      course.textContent = grades[i].course;
-      grade.textContent = grades[i].grade;
-
-      var rowElements = [name, course, grade];
-
-      for (var rowIndex = 0; rowIndex < rowElements.length; rowIndex++){
-        row.appendChild(rowElements[rowIndex]);
-      }
-      tbody.appendChild(row);
+      this.renderGradeRow(grades[i], this.deleteGrade);
     }
+  }
+  onDeleteClick(deleteGrade){
+    this.deleteGrade = deleteGrade;
+  }
+  renderGradeRow(data, deleteGrade){
+    var row = document.createElement("tr");
+    var name = document.createElement("td");
+    var course = document.createElement("td");
+    var grade = document.createElement("td");
+    var operations = document.createElement("td");
+
+    var operationsButton = document.createElement("button");
+    operationsButton.textContent = "Delete";
+    operationsButton.className = "btn btn-danger";
+    operationsButton.addEventListener('click', function() {
+      deleteGrade(data.id);
+    });
+
+    operations.appendChild(operationsButton);
+
+    name.textContent = data.name;
+    course.textContent = data.course;
+    grade.textContent = data.grade;
+
+    var rowElements = [name, course, grade, operations];
+
+    for (var rowIndex = 0; rowIndex < rowElements.length; rowIndex++) {
+      row.appendChild(rowElements[rowIndex])
+    }
+    this.tbody.appendChild(row);
   }
 }

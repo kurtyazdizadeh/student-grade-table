@@ -1,5 +1,5 @@
 var APIKey = "GkNqAZE8";
-var url = "https://sgt.lfzprototypes.com/api/grades";
+var urlPath = "https://sgt.lfzprototypes.com/api/grades";
 
 class App {
   constructor (gradeTable, pageHeader, gradeForm) {
@@ -8,10 +8,25 @@ class App {
     this.createGrade = this.createGrade.bind(this);
     this.handleCreateGradeError = this.handleCreateGradeError.bind(this);
     this.handleCreateGradeSuccess = this.handleCreateGradeSuccess.bind(this);
+    this.deleteGrade = this.deleteGrade.bind(this);
+    this.handleDeleteGradeError = this.handleDeleteGradeError.bind(this);
+    this.handleDeleteGradeSuccess = this.handleDeleteGradeSuccess.bind(this);
 
     this.gradeTable = gradeTable;
     this.pageHeader = pageHeader;
     this.gradeForm = gradeForm;
+  }
+  ajaxCall(method, url, success, error, data = {}) {
+    $.ajax({
+      method: method,
+      url: url,
+      data: data,
+      headers: {
+        "X-Access-Token": APIKey
+      },
+      success: success,
+      error: error
+    })
   }
   handleGetGradesError(error) {
     console.error(error);
@@ -25,43 +40,57 @@ class App {
     }
     avgGrades /= grades.length;
 
+    if (Number.isNaN(avgGrades)) {
+      avgGrades = 0;
+    }
+
     this.pageHeader.updateAverage(avgGrades);
   }
   getGrades() {
-    $.ajax({
-      method: "GET",
-      url: url,
-      headers: {
-        "X-Access-Token": APIKey
-      },
-      success: this.handleGetGradesSuccess,
-      error: this.handleGetGradesError
-    })
+    this.ajaxCall(
+      "GET",
+      urlPath,
+      this.handleGetGradesSuccess,
+      this.handleGetGradesError
+    )
   }
   start() {
     this.getGrades();
     this.gradeForm.onSubmit(this.createGrade);
+    this.gradeTable.onDeleteClick(this.deleteGrade);
   }
   createGrade(name, course, grade) {
-    $.ajax({
-      method: "POST",
-      url: url,
-      headers: {
-        "X-Access-Token": APIKey
-      },
-      data: {
+    this.ajaxCall(
+      "POST",
+      urlPath,
+      this.handleCreateGradeSuccess,
+      this.handleCreateGradeError,
+      {
         "name": name,
         "course": course,
         "grade": grade
-      },
-      success: this.handleCreateGradeSuccess,
-      error: this.handleCreateGradeError
-    })
+      }
+    )
   }
   handleCreateGradeError(error){
     console.error(error);
   }
   handleCreateGradeSuccess(){
+    this.getGrades();
+  }
+  deleteGrade(id){
+    this.ajaxCall(
+      "DELETE",
+      `${urlPath}/${id}`,
+      this.handleDeleteGradeSuccess,
+      this.handleDeleteGradeError
+    )
+
+  }
+  handleDeleteGradeError(error){
+    console.error(error);
+  }
+  handleDeleteGradeSuccess(){
     this.getGrades();
   }
 }
