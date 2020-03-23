@@ -98,8 +98,6 @@ class App {
     this.getGrades();
   }
   updateGrade(data){
-    console.log("update in app", data);
-
     this.ajaxCall(
       "PATCH",
       `${urlPath}/${data.id}`,
@@ -113,7 +111,6 @@ class App {
     )
   }
   handleUpdateGradeSuccess(data) {
-    console.log(data);
     this.getGrades();
   }
   handleUpdateGradeError(error) {

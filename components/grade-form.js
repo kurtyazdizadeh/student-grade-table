@@ -11,10 +11,6 @@ class GradeForm {
     this.submitBtn = this.formElement.querySelector("#formSubmit");
 
     this.formElement.addEventListener('submit', this.handleSubmit);
-    // this.formElement.addEventListener('submit', this.handleUpdate); <-- this also gets called
-
-    // this.submitBtn.addEventListener('submit', this.handleSubmit); <-- these throw errors
-    // this.updateBtn.addEventListener('submit', this.handleUpdate);
   }
   onSubmit(createGrade) {
     this.createGrade = createGrade;
