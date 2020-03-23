@@ -58,8 +58,9 @@ class App {
   start() {
     this.getGrades();
     this.gradeForm.onSubmit(this.createGrade);
+    this.gradeForm.onUpdate(this.updateGrade);
     this.gradeTable.onDeleteClick(this.deleteGrade);
-    this.gradeTable.onUpdateClick(this.updateGrade);
+    this.gradeTable.onUpdateClick(this.gradeForm.rowToUpdate);
   }
   createGrade(name, course, grade) {
     this.ajaxCall(
@@ -94,7 +95,19 @@ class App {
   handleDeleteGradeSuccess(){
     this.getGrades();
   }
-  updateGrade(id){
-    console.log(id);
+  updateGrade(data){
+    console.log(data);
+
+    // this.ajaxCall(
+    //   "PATCH",
+    //   `${urlPath}/${id}`,
+    //   this.handleUpdateGradeSuccess,
+    //   this.handleUpdateGradeError,
+    //   {
+    //     "name": name,
+    //     "course": course,
+    //     "grade": grade
+    //   }
+    // )
   }
 }

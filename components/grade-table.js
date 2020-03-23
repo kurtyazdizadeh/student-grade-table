@@ -12,16 +12,16 @@ class GradeTable {
       this.noGradesElement.classList.add('d-none');
 
     for (var i = 0; i < grades.length; i++) {
-      this.renderGradeRow(grades[i], this.deleteGrade, this.updateGrade);
+      this.renderGradeRow(grades[i], this.deleteGrade, this.rowToUpdate);
     }
   }
   onDeleteClick(deleteGrade){
     this.deleteGrade = deleteGrade;
   }
-  onUpdateClick(updateGrade){
-    this.updateGrade = updateGrade;
+  onUpdateClick(rowToUpdate){
+    this.rowToUpdate = rowToUpdate;
   }
-  renderGradeRow(data, deleteGrade, updateGrade){
+  renderGradeRow(data, deleteGrade, rowToUpdate){
     var row = document.createElement("tr");
     var name = document.createElement("td");
     var course = document.createElement("td");
@@ -33,7 +33,7 @@ class GradeTable {
     var operationsEdit = document.createElement("i");
     operationsEdit.className = "fas fa-edit text-primary cursor-pointer";
     operationsEdit.addEventListener('click', function() {
-      updateGrade(data.id);
+      rowToUpdate(data);
     });
 
     var operationsDelete = document.createElement("i");
