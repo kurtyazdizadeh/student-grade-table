@@ -12,11 +12,14 @@ class GradeTable {
       this.noGradesElement.classList.add('d-none');
 
     for (var i = 0; i < grades.length; i++) {
-      this.renderGradeRow(grades[i], this.deleteGrade);
+      this.renderGradeRow(grades[i], this.deleteGrade, this.updateGrade);
     }
   }
   onDeleteClick(deleteGrade){
     this.deleteGrade = deleteGrade;
+  }
+  onUpdateClick(updateGrade){
+    this.updateGrade = updateGrade;
   }
   renderGradeRow(data, deleteGrade){
     var row = document.createElement("tr");
@@ -30,7 +33,7 @@ class GradeTable {
     var operationsEdit = document.createElement("i");
     operationsEdit.className = "fas fa-edit text-primary cursor-pointer";
     operationsEdit.addEventListener('click', function() {
-
+      updateGrade();
     });
 
     var operationsDelete = document.createElement("i");
