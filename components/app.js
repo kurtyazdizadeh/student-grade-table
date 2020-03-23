@@ -18,6 +18,8 @@ class App {
     this.gradeTable = gradeTable;
     this.pageHeader = pageHeader;
     this.gradeForm = gradeForm;
+
+    this.grades = [];
   }
   ajaxCall(method, url, success, error, data = {}) {
     $.ajax({
@@ -35,7 +37,8 @@ class App {
     console.error(error);
   }
   handleGetGradesSuccess(grades) {
-    this.gradeTable.updateGrades(grades);
+    this.grades = grades;
+    this.gradeTable.updateGrades(this.grades);
 
     var avgGrades = 0;
     for (var i = 0; i < grades.length; i++) {
