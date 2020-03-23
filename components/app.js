@@ -110,7 +110,7 @@ class App {
       }
     )
   }
-  handleUpdateGradeSuccess(data) {
+  handleUpdateGradeSuccess() {
     this.getGrades();
   }
   handleUpdateGradeError(error) {
