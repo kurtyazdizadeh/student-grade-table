@@ -1,3 +1,31 @@
 .cursor-pointer {
   cursor: pointer;
 }
+.card {
+  border-radius: 5px 0 0 5px;
+  border-right: none;
+}
+.form-control {
+  border-radius: 0 5px 5px 0;
+}
+.average-grade {
+  text-align: right;
+}
+form {
+  padding-left: 1rem;
+}
+
+@media (max-width: 991.98px) {
+  .average-grade {
+    text-align: center !important;
+  }
+  .title {
+    text-align: center;
+  }
+  .form-title {
+    text-align: center;
+  }
+  form {
+    padding-left: 0;
+  }
+}
