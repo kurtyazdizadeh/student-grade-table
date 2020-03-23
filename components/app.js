@@ -12,6 +12,8 @@ class App {
     this.handleDeleteGradeError = this.handleDeleteGradeError.bind(this);
     this.handleDeleteGradeSuccess = this.handleDeleteGradeSuccess.bind(this);
     this.updateGrade = this.updateGrade.bind(this);
+    this.handleUpdateGradeError = this.handleUpdateGradeError.bind(this);
+    this.handleUpdateGradeSuccess = this.handleUpdateGradeSuccess.bind(this);
 
     this.gradeTable = gradeTable;
     this.pageHeader = pageHeader;
@@ -96,18 +98,25 @@ class App {
     this.getGrades();
   }
   updateGrade(data){
-    console.log(data);
+    console.log("update in app", data);
 
-    // this.ajaxCall(
-    //   "PATCH",
-    //   `${urlPath}/${id}`,
-    //   this.handleUpdateGradeSuccess,
-    //   this.handleUpdateGradeError,
-    //   {
-    //     "name": name,
-    //     "course": course,
-    //     "grade": grade
-    //   }
-    // )
+    this.ajaxCall(
+      "PATCH",
+      `${urlPath}/${data.id}`,
+      this.handleUpdateGradeSuccess,
+      this.handleUpdateGradeError,
+      {
+        "name": data.name,
+        "course": data.course,
+        "grade": data.grade
+      }
+    )
+  }
+  handleUpdateGradeSuccess(data) {
+    console.log(data);
+    this.getGrades();
+  }
+  handleUpdateGradeError(error) {
+    console.error(error);
   }
 }
