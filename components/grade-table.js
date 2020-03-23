@@ -21,7 +21,7 @@ class GradeTable {
   onUpdateClick(updateGrade){
     this.updateGrade = updateGrade;
   }
-  renderGradeRow(data, deleteGrade){
+  renderGradeRow(data, deleteGrade, updateGrade){
     var row = document.createElement("tr");
     var name = document.createElement("td");
     var course = document.createElement("td");
@@ -33,7 +33,7 @@ class GradeTable {
     var operationsEdit = document.createElement("i");
     operationsEdit.className = "fas fa-edit text-primary cursor-pointer";
     operationsEdit.addEventListener('click', function() {
-      updateGrade();
+      updateGrade(data.id);
     });
 
     var operationsDelete = document.createElement("i");

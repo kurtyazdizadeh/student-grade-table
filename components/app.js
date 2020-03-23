@@ -11,6 +11,7 @@ class App {
     this.deleteGrade = this.deleteGrade.bind(this);
     this.handleDeleteGradeError = this.handleDeleteGradeError.bind(this);
     this.handleDeleteGradeSuccess = this.handleDeleteGradeSuccess.bind(this);
+    this.updateGrade = this.updateGrade.bind(this);
 
     this.gradeTable = gradeTable;
     this.pageHeader = pageHeader;
@@ -58,6 +59,7 @@ class App {
     this.getGrades();
     this.gradeForm.onSubmit(this.createGrade);
     this.gradeTable.onDeleteClick(this.deleteGrade);
+    this.gradeTable.onUpdateClick(this.updateGrade);
   }
   createGrade(name, course, grade) {
     this.ajaxCall(
@@ -85,12 +87,14 @@ class App {
       this.handleDeleteGradeSuccess,
       this.handleDeleteGradeError
     )
-
   }
   handleDeleteGradeError(error){
     console.error(error);
   }
   handleDeleteGradeSuccess(){
     this.getGrades();
+  }
+  updateGrade(id){
+    console.log(id);
   }
 }
