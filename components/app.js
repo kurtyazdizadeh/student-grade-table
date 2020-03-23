@@ -83,8 +83,10 @@ class App {
   handleCreateGradeError(error){
     console.error(error);
   }
-  handleCreateGradeSuccess(){
-    this.getGrades();
+  handleCreateGradeSuccess(data){
+    // this.getGrades();
+    this.grades.push(data);
+    this.gradeTable.updateGrades(this.grades);
   }
   deleteGrade(id){
     this.ajaxCall(
