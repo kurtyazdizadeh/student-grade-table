@@ -3,6 +3,7 @@ class GradeForm {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.rowToUpdate = this.rowToUpdate.bind(this);
     this.extractFormData = this.extractFormData.bind(this);
+    this.resetForm = this.resetForm.bind(this);
 
     this.formElement = formElement;
     this.currentRowID = 0;
@@ -11,6 +12,7 @@ class GradeForm {
     this.submitBtn = this.formElement.querySelector("#formSubmit");
 
     this.formElement.addEventListener('submit', this.handleSubmit);
+    this.formElement.addEventListener('reset', this.resetForm);
   }
   onSubmit(createGrade) {
     this.createGrade = createGrade;
@@ -29,12 +31,8 @@ class GradeForm {
     } else {
       this.createGrade(data.name, data.course, data.grade);
     }
-
     event.target.reset();
-
-    this.formTitle.textContent = "Add Grade";
-    this.submitBtn.textContent = "Add";
-
+    this.resetForm();
   }
   extractFormData (eventTarget) {
     var formData = new FormData(eventTarget);
@@ -67,5 +65,9 @@ class GradeForm {
 
     this.formTitle.textContent = "Update Grade";
     this.submitBtn.textContent = "Update";
+  }
+  resetForm() {
+    this.formTitle.textContent = "Add Grade";
+    this.submitBtn.textContent = "Add";
   }
 }
