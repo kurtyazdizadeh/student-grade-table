@@ -125,7 +125,6 @@ class App {
     )
   }
   handleUpdateGradeSuccess(data) {
-    // this.getGrades();
     for (var i = 0; i < this.grades.length; i++){
       if (this.grades[i].id === data.id) {
         this.grades[i] = data;

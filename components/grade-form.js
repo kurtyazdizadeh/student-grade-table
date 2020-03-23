@@ -31,12 +31,8 @@ class GradeForm {
     } else {
       this.createGrade(data.name, data.course, data.grade);
     }
-
     event.target.reset();
-
-    this.formTitle.textContent = "Add Grade";
-    this.submitBtn.textContent = "Add";
-
+    this.resetForm();
   }
   extractFormData (eventTarget) {
     var formData = new FormData(eventTarget);
