@@ -25,14 +25,22 @@ class GradeTable {
     var grade = document.createElement("td");
     var operations = document.createElement("td");
 
-    var operationsButton = document.createElement("button");
-    operationsButton.textContent = "Delete";
-    operationsButton.className = "btn btn-danger";
-    operationsButton.addEventListener('click', function() {
+    operations.className = "d-flex justify-content-around";
+
+    var operationsEdit = document.createElement("i");
+    operationsEdit.className = "fas fa-edit text-primary cursor-pointer";
+    operationsEdit.addEventListener('click', function() {
+
+    });
+
+    var operationsDelete = document.createElement("i");
+    operationsDelete.className = "fas fa-trash text-danger cursor-pointer";
+    operationsDelete.addEventListener('click', function() {
       deleteGrade(data.id);
     });
 
-    operations.appendChild(operationsButton);
+    operations.appendChild(operationsEdit);
+    operations.appendChild(operationsDelete);
 
     name.textContent = data.name;
     course.textContent = data.course;
